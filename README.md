@@ -21,14 +21,14 @@ This project uses amazon connect and aws lambda to create vanity numbers based o
 9. Agent ends call
 
 ## DynamoDB
-# PK
+### PK
 - phoneNumber (string)
-# Attributes
+### Attributes
 - createdAt (string)
 - resultCount (number)
 - results (list)
 
-# IAM policy
+### IAM policy
 {
   "Version": "2012-10-17",
   "Statement": [
