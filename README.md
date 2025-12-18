@@ -20,6 +20,27 @@ This project uses amazon connect and aws lambda to create vanity numbers based o
 8. Top 3 scores are sent back to the amazon connect flow to be read back to the caller
 9. Agent ends call
 
+## DynamoDB
+PK
+- phoneNumber (string)
+Attributes
+- createdAt (string)
+- resultCount (number)
+- results (list)
+
+IAM policy
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": "dynamodb:PutItem",
+      "Resource": "arn:aws:dynamodb:us-west-2:195322291304:table/vanityNumbers"
+    }
+  ]
+}
+
+
 ## Questions
 1. Record your reasons for implementing the solution the way you did, struggles you faced and problems you overcame.
 - First reason i choose this solution was the problem I was facing with how many words can be created using the digits on a phone number. Thats why i created a dictionary to be referenced when creating the words. If i didn't the number of possibilities of letter combinations for words are to many it would never get through the lambda. So i created a list of common vanity words to be looked at, this can be expanded for more possibilities
