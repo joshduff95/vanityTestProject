@@ -17,7 +17,7 @@ This project uses amazon connect and aws lambda to create vanity numbers based o
 5. Words in a dictionary are compared to the letters the callers digit create
 6. The create dictionary words are scored based on length of words or if there is multiple
 7. Top 5 scores are sent to a dynamoDB
-8. Top 3 scores are sent back to the amazon connect flow to be read back to the caller
+8. Top 3 scores are sent back to the amazon connect flow to be read back to the caller(if here are less than 3 or none it will say that also)
 9. Agent ends call
 
 ## DynamoDB
@@ -52,3 +52,4 @@ This project uses amazon connect and aws lambda to create vanity numbers based o
 3. What would you have done with more time? We know you have a life.
 - I would create a mor complex dictionary so we can find more vanity options for words.
 - Create different options for when the caller calls in case they don't like the options that are given
+- Add a check to see if the number has already been added and if it is just pull the info from the database. This would allow me to skip the creating and scoring step.

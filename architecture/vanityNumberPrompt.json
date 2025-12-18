@@ -1,0 +1,325 @@
+{
+  "Version": "2019-10-30",
+  "StartAction": "Welcome Prompt",
+  "Metadata": {
+    "entryPointPosition": {
+      "x": 40,
+      "y": 40
+    },
+    "ActionMetadata": {
+      "Ivalid number prompt": {
+        "position": {
+          "x": 534.4,
+          "y": 479.2
+        },
+        "isFriendlyName": true
+      },
+      "Welcome Prompt": {
+        "position": {
+          "x": 97.6,
+          "y": 177.6
+        },
+        "isFriendlyName": true
+      },
+      "12ce6472-0566-4108-8509-c5778e167ee7": {
+        "position": {
+          "x": 766.4,
+          "y": 773.6
+        }
+      },
+      "Generate Vanity Numbers": {
+        "position": {
+          "x": 346.4,
+          "y": 184
+        },
+        "isFriendlyName": true,
+        "parameters": {
+          "LambdaFunctionARN": {
+            "displayName": "generateVanityNumbers"
+          },
+          "LambdaInvocationAttributes": {
+            "phoneNumber": {
+              "useJson": true
+            }
+          }
+        },
+        "dynamicMetadata": {
+          "phoneNumber": false
+        }
+      },
+      "Vanity number check": {
+        "position": {
+          "x": 627.2,
+          "y": 156
+        },
+        "isFriendlyName": true,
+        "conditionMetadata": [
+          {
+            "id": "7070ce81-31db-4438-9d4f-8b0db5dcd80f",
+            "operator": {
+              "name": "Equals",
+              "value": "Equals",
+              "shortDisplay": "="
+            },
+            "value": "3"
+          },
+          {
+            "id": "d37cade4-ddd4-41c4-a283-f36c959ed304",
+            "operator": {
+              "name": "Equals",
+              "value": "Equals",
+              "shortDisplay": "="
+            },
+            "value": "2"
+          },
+          {
+            "id": "6dd25893-92de-4601-a230-70505b34d4e9",
+            "operator": {
+              "name": "Equals",
+              "value": "Equals",
+              "shortDisplay": "="
+            },
+            "value": "1"
+          },
+          {
+            "id": "28d4ab49-f7ef-4751-a718-ab2024f713f7",
+            "operator": {
+              "name": "Equals",
+              "value": "Equals",
+              "shortDisplay": "="
+            },
+            "value": "0"
+          }
+        ]
+      },
+      "3 vanity prompt": {
+        "position": {
+          "x": 969.6,
+          "y": 38.4
+        },
+        "isFriendlyName": true
+      },
+      "2 vanity prompt": {
+        "position": {
+          "x": 973.6,
+          "y": 226.4
+        },
+        "isFriendlyName": true
+      },
+      "1 vanity prompt": {
+        "position": {
+          "x": 976,
+          "y": 416
+        },
+        "isFriendlyName": true
+      },
+      "No vanity number": {
+        "position": {
+          "x": 984,
+          "y": 608
+        },
+        "isFriendlyName": true
+      },
+      "5e29b56e-e2d0-4a42-a7c5-91477a45bb1d": {
+        "position": {
+          "x": 1406.4,
+          "y": -35.2
+        }
+      }
+    },
+    "Annotations": [],
+    "name": "vanityNumberPrompt",
+    "description": "",
+    "type": "contactFlow",
+    "status": "published",
+    "hash": {}
+  },
+  "Actions": [
+    {
+      "Parameters": {
+        "Text": "The number you called from is invalid. Please call from a valid phone number to receive you vanity numbers."
+      },
+      "Identifier": "Ivalid number prompt",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "12ce6472-0566-4108-8509-c5778e167ee7",
+        "Errors": [
+          {
+            "NextAction": "12ce6472-0566-4108-8509-c5778e167ee7",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "Text": "Please wait when we gather your vanity numbers based on your phone number"
+      },
+      "Identifier": "Welcome Prompt",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "Generate Vanity Numbers",
+        "Errors": [
+          {
+            "NextAction": "12ce6472-0566-4108-8509-c5778e167ee7",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {},
+      "Identifier": "12ce6472-0566-4108-8509-c5778e167ee7",
+      "Type": "EndFlowExecution",
+      "Transitions": {}
+    },
+    {
+      "Parameters": {
+        "LambdaFunctionARN": "arn:aws:lambda:us-west-2:195322291304:function:generateVanityNumbers",
+        "InvocationTimeLimitSeconds": "3",
+        "InvocationType": "SYNCHRONOUS",
+        "LambdaInvocationAttributes": {
+          "phoneNumber": "3153492886"
+        },
+        "ResponseValidation": {
+          "ResponseType": "STRING_MAP"
+        }
+      },
+      "Identifier": "Generate Vanity Numbers",
+      "Type": "InvokeLambdaFunction",
+      "Transitions": {
+        "NextAction": "Vanity number check",
+        "Errors": [
+          {
+            "NextAction": "Ivalid number prompt",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "ComparisonValue": "$.External.VanityCount"
+      },
+      "Identifier": "Vanity number check",
+      "Type": "Compare",
+      "Transitions": {
+        "NextAction": "12ce6472-0566-4108-8509-c5778e167ee7",
+        "Conditions": [
+          {
+            "NextAction": "3 vanity prompt",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "3"
+              ]
+            }
+          },
+          {
+            "NextAction": "2 vanity prompt",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "2"
+              ]
+            }
+          },
+          {
+            "NextAction": "1 vanity prompt",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "1"
+              ]
+            }
+          },
+          {
+            "NextAction": "No vanity number",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "0"
+              ]
+            }
+          }
+        ],
+        "Errors": [
+          {
+            "NextAction": "12ce6472-0566-4108-8509-c5778e167ee7",
+            "ErrorType": "NoMatchingCondition"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "Text": " Here are your top vanity phone numbers.\nFirst option: $.External.Vanity1.\nSecond option: $.External.Vanity2.\nThird option: $.External.Vanity3.\n"
+      },
+      "Identifier": "3 vanity prompt",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "5e29b56e-e2d0-4a42-a7c5-91477a45bb1d",
+        "Errors": [
+          {
+            "NextAction": "5e29b56e-e2d0-4a42-a7c5-91477a45bb1d",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "Text": " Here are your top vanity phone numbers.\nFirst option: $.External.Vanity1.\nSecond option: $.External.Vanity2.\n"
+      },
+      "Identifier": "2 vanity prompt",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "5e29b56e-e2d0-4a42-a7c5-91477a45bb1d",
+        "Errors": [
+          {
+            "NextAction": "5e29b56e-e2d0-4a42-a7c5-91477a45bb1d",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "Text": " Here is your vanity phone number.\n$.External.Vanity1.\n\n"
+      },
+      "Identifier": "1 vanity prompt",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "5e29b56e-e2d0-4a42-a7c5-91477a45bb1d",
+        "Errors": [
+          {
+            "NextAction": "5e29b56e-e2d0-4a42-a7c5-91477a45bb1d",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "Text": "Unable to come up with any vanity numbers at this time.\n"
+      },
+      "Identifier": "No vanity number",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "5e29b56e-e2d0-4a42-a7c5-91477a45bb1d",
+        "Errors": [
+          {
+            "NextAction": "5e29b56e-e2d0-4a42-a7c5-91477a45bb1d",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {},
+      "Identifier": "5e29b56e-e2d0-4a42-a7c5-91477a45bb1d",
+      "Type": "EndFlowExecution",
+      "Transitions": {}
+    }
+  ]
+}
