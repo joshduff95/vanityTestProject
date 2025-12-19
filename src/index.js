@@ -35,7 +35,7 @@ async function generateVanityNumbers(phoneNumber) {
     if (digits.length === 10) return true;
     return false;
   }
-
+  // if an 11 digit number comes in it gets rid of the 1st digit
   function normalizeNumber(phoneNumber) {
     const digits = phoneNumber.toString().replace(/\D/g, '');
     if (digits.length === 11 && digits.startsWith('1')) return digits.slice(1);
